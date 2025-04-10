@@ -1,1 +1,85 @@
+function CheckLev()
+    local Level = game:GetService("Players").LocalPlayer.Data.Level.Value
+    if Level == 1 <= 10 then
+        m = "Bandit"
+        lvq = 1
+        nq = "BanditQuest1"
+        nm = "Bandit"
+        cfq = CFrame.new(1062.03918, 16.5515461, 1545.9071, -0.879862726, 5.3100746e-09, 0.475227892, 4.75125583e-09, 1, -2.37701037e-09, -0.475227892, 1.6648645e-10, -0.879862726)
+        cfm = CFrame.new(1016.23932, 50.5311279, 1629.92651, 0.988096178, -1.01337513e-07, 0.153837547, 1.0612203e-07, 1, -2.28894255e-08, -0.153837547, 3.89425061e-08, 0.988096178)
+    end
+end
 
+function BTP(p)
+    pcall(function()
+        if (p.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 1500 and not Auto_Raid and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+            repeat wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
+                wait(.05)
+                game.Players.LocalPlayer.Character.Head:Destroy()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
+            until (p.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 1500 and game.Players.LocalPlayer.Character.Humanoid.Health > 0
+        end
+    end)
+end
+
+function ATween(Pos)
+    Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end
+    pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/210, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
+    tween:Play()
+    if Distance <= 250 then
+        tween:Cancel()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
+    end
+    if _G.StopTween == true then
+        tween:Cancel()
+        _G.Clip = false
+    end
+end
+
+spawn(function()
+    if _G.AutoFarm then
+        if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+            CheckLev()
+            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - cfq.Position).Magnitude > 1500 then
+                BTP(cfq)
+            elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - cfq.Position).Magnitude < 1500 then
+                ATween(cfq)
+            else
+                ATween(cfq)
+            end
+            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - cfq.Position).Magnitude <= 5 then
+                local args = {
+                    [1] = "StartQuest",
+                    [2] = nq,
+                    [3] = lvq
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
+            end
+            
+        elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+            CheckLev()
+            if game:GetService("Workspace").Enemies:FindFirstChild(Mon) then
+                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                        if v.Name == nm then
+                            if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, nm) then
+                                PosMon = v.HumanoidRootPart.CFrame
+                                ATween(v.HumanoidRootPart.CFrame * Pos)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Humanoid.WalkSpeed = 0
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.Size = Vector3.new(70,70,70)
+                                StartMagnet = true
+                                game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+    
