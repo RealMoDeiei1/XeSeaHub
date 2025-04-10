@@ -1,6 +1,6 @@
 function CheckLev()
     local Level = game:GetService("Players").LocalPlayer.Data.Level.Value
-    if Level == 1 <= 10 then
+    if Level == 1 or Levle <= 9 then
         m = "Bandit"
         lvq = 1
         nq = "BanditQuest1"
@@ -12,21 +12,21 @@ end
 
 function BTP(p)
     pcall(function()
-        if (p.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 1500 and not Auto_Raid and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+        if (p.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 1500 and not Auto_Raid and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
             repeat wait()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
                 wait(.05)
                 game.Players.LocalPlayer.Character.Head:Destroy()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
-            until (p.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 1500 and game.Players.LocalPlayer.Character.Humanoid.Health > 0
+            until (p.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 1500 and game.Players.LocalPlayer.Character.Humanoid.Health > 0
         end
     end)
 end
 
 function ATween(Pos)
-    Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    local Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end
-    pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/210, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
+    pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/210, Enum.EasingStyle.Linear), {CFrame = Pos}) end)
     tween:Play()
     if Distance <= 250 then
         tween:Cancel()
@@ -57,7 +57,6 @@ spawn(function()
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
             end
-            
         elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
             CheckLev()
             if game:GetService("Workspace").Enemies:FindFirstChild(Mon) then
@@ -82,4 +81,3 @@ spawn(function()
         end
     end
 end)
-    
