@@ -108,10 +108,9 @@ spawn(function()
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
                     Tween(CQ)
                     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("StartQuest", NQ, LQ)
-                    wait(0.5)
+                    task.wait(0.5)
                 elseif string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, M) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
                     CheckL()
-                    local found = false
                     for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if v.Name == M and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
                             if v.Humanoid.Health > 0 then
@@ -124,19 +123,19 @@ spawn(function()
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
                                     _G.BringMob = true
+                                    task.wait(0.5)
                                 until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false
                             end
                         end
                     end
-                        Tween(CM)
-                        BringMob = false
-                        if game:GetService("ReplicatedStorage"):FindFirstChild(M) and game:GetService("ReplicatedStorage"):FindFirstChild(M):FindFirstChild("HumanoidRootPart") then
-                            Tween(game:GetService("ReplicatedStorage"):FindFirstChild(M).HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
-                        end
+                    Tween(CM)
+                    _G.BringMob = false
+                    if game:GetService("ReplicatedStorage"):FindFirstChild(M) and game:GetService("ReplicatedStorage"):FindFirstChild(M):FindFirstChild("HumanoidRootPart") then
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild(M).HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
                     end
                 end
             end)
-            wait(0.5)
+            task.wait(0.5)
         end
     end
 end)
