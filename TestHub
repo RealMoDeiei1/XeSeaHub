@@ -108,7 +108,6 @@ spawn(function()
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
                     Tween(CQ)
                     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("StartQuest", NQ, LQ)
-                    task.wait(0.5)
                 elseif string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, M) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
                     CheckL()
                     for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
@@ -123,7 +122,6 @@ spawn(function()
                                     v.Head.CanCollide = false
                                     v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
                                     _G.BringMob = true
-                                    task.wait(0.5)
                                 until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false
                             end
                         end
@@ -135,7 +133,6 @@ spawn(function()
                     end
                 end
             end)
-            task.wait(0.5)
         end
     end
 end)
