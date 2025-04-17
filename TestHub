@@ -16,6 +16,13 @@ function CheckL()
         NM = "Monkey [Lv.14]"
         CQ = CFrame.new(-1601.90808, 36.8334923, 155.356049, 0.531387448, -2.14474891e-08, -0.847128928, 1.47501278e-09, 1, -2.43926124e-08, 0.847128928, 1.17124017e-08, 0.531387448)
         CM = CFrame.new(-1667.46985, 31.4334984, 364.257751, -0.758498311, 5.76565853e-08, 0.651674986, 2.32703901e-09, 1, -8.57659614e-08, -0.651674986, -6.35368593e-08, -0.758498311)
+    elseif Level == 15 or Level <= 30 then
+        M = "Gorilla"
+        LQ = 2
+        NQ = "JungleQuest"
+        NM = "Gorilla [Lv.20]"
+        CQ = CFrame.new(-1601.90808, 36.8334923, 155.356049, 0.531387448, -2.14474891e-08, -0.847128928, 1.47501278e-09, 1, -2.43926124e-08, 0.847128928, 1.17124017e-08, 0.531387448)
+        CM = CFrame.new(-1667.46985, 31.4334984, 364.257751, -0.758498311, 5.76565853e-08, 0.651674986, 2.32703901e-09, 1, -8.57659614e-08, -0.651674986, -6.35368593e-08, -0.758498311)
     end
 end
 
@@ -39,17 +46,16 @@ function Tween(Pos)
     end)
 end
 
-function Click()
-    local Module = require(game.Players.LocalPlayer.PlayerScripts.CombatFramework)
-    local CombatFramework = debug.getupvalues(Module)[2]
-    local CamShake = require(game.ReplicatedStorage.Util.CameraShaker)
-    CamShake:Stop()
-    CombatFramework.activeController.attacking = false
-    CombatFramework.activeController.timeToNextAttack = 0
-    CombatFramework.activeController.hitboxMagnitude = 180
-    game:GetService'VirtualUser':CaptureController()
-    game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-end
+_G.AutoClick = true
+
+spawn(function()
+    local VirtualInput = game:GetService("VirtualInputManager")
+    while _G.AutoClick do
+        task.wait(0.1) -- ปรับความเร็วในการคลิกได้ เช่น 0.05 เร็วกว่านี้
+        VirtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+        VirtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+    end
+end)
 
 
 spawn(function()
