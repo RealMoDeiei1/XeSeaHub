@@ -85,7 +85,7 @@ spawn(function()
                             if v.Humanoid.Health > 0 then
                                 print("ชื่อมอน:", v.Name)
                                 repeat
-                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
+                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
                                     v.Humanoid.WalkSpeed = 0
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
