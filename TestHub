@@ -9,6 +9,13 @@ function CheckL()
         NM = "Bandit [Lv.5]"
         CQ = CFrame.new(1061.14612, 16.5515461, 1545.81348, -0.929318786, 2.35310829e-08, 0.369278491, 4.99233677e-09, 1, -5.11581639e-08, -0.369278491, -4.56986804e-08, -0.929318786)
         CM = CFrame.new(1037.38586, 38.5365829, 1576.2052, 0.152108416, -0.217158884, 0.96421212, -0.15783675, 0.957706869, 0.240593135, -0.975679457, -0.188784361, 0.111399628)
+    elseif Level == 10 or Level <= 15 then
+        M = "Monkey"
+        LQ = 1
+        NQ = "JungleQuest"
+        NM = "Monkey [Lv.14]"
+        CQ = CFrame.new(-1601.90808, 36.8334923, 155.356049, 0.531387448, -2.14474891e-08, -0.847128928, 1.47501278e-09, 1, -2.43926124e-08, 0.847128928, 1.17124017e-08, 0.531387448)
+        CM = CFrame.new(-1667.46985, 31.4334984, 364.257751, -0.758498311, 5.76565853e-08, 0.651674986, 2.32703901e-09, 1, -8.57659614e-08, -0.651674986, -6.35368593e-08, -0.758498311)
     end
 end
 
@@ -85,7 +92,7 @@ spawn(function()
                             if v.Humanoid.Health > 0 then
                                 print("ชื่อมอน:", v.Name)
                                 repeat
-                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
+                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
                                     v.Humanoid.WalkSpeed = 0
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Head.CanCollide = false
