@@ -51,20 +51,20 @@ _G.AutoClick = true
 spawn(function()
     local VirtualInput = game:GetService("VirtualInputManager")
     while _G.AutoClick do
-        task.wait(0.1) -- ปรับความเร็วในการคลิกได้ เช่น 0.05 เร็วกว่านี้
+        task.wait(0.1)
         VirtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 0)
         VirtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 0)
     end
 end)
 
-
 spawn(function()
     while _G.BringMob do
         pcall(function()
-            for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+            for i, v in pairs(workspace.Enemies:GetChildren()) do
                 if v.Name == M and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
                     if v.Humanoid.Health > 0 then
-                        v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 10, 0)
+                        v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 2, 0)
+                        v.HumanoidRootPart.Anchored = false
                         v.HumanoidRootPart.CanCollide = false
                         v.Head.CanCollide = false
                         v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
